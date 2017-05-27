@@ -9,27 +9,40 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button,
+  AsyncStorage,
+  DatePickerAndroid
 } from 'react-native';
+import {
+  StackNavigator,
+} from 'react-navigation';
+import CreateEvent from './android.src/createEvent.js';
 
-export default class DayPlan extends Component {
+export default class Main extends Component {
+  static navigationOptions = { title: 'Welcome', header: null };
   render() {
+    // AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+    const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+      <View style={{flex: 1, flexDirection: 'column'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between',
+          height: 35, backgroundColor: 'powderblue'}}>
+          <Button title="Menu" style={{width: 80}} color="skyblue" />
+          <Button title="Create" style={{width: 80}} color="skyblue"
+          onPress={() => navigate('Profile', { name: 'Jane' })}/>
+        </View>
+        <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
+        <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
       </View>
     );
   }
 }
+
+const DayPlan = StackNavigator({
+  Main: {screen: Main},
+  Profile: {screen: CreateEvent},
+});
 
 const styles = StyleSheet.create({
   container: {
